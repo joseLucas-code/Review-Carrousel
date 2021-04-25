@@ -40,27 +40,29 @@ const totalReviews = reviews.length - 1
 prevBtn.addEventListener('click', ()=>{
     reviewIndex === 0 ? reviewIndex = totalReviews : reviewIndex--
 
-    randomReview(false)
+    randomReview()
 })
 
 nextBtn.addEventListener('click', ()=>{
     reviewIndex === totalReviews ? reviewIndex = 0 : reviewIndex++
 
-    randomReview(false)
+    randomReview()
 })
 
 
-randomReviewBtn.addEventListener('click', randomReview, true)
+randomReviewBtn.addEventListener('click', loadRandomReview)
 
-function randomReview(random){
+function loadRandomReview(){
+    reviewIndex = Math.floor(Math.random() * reviews.length)
+
+    randomReview()
+}
+
+function randomReview(){
     const perfilImg = document.querySelector('.perfil-img img');
     const peopleName = document.querySelector('.people-name');
     const peopleProfession = document.querySelector('.people-profession');
     const reviewDescription = document.querySelector('.review');
-
-    if(random){
-        reviewIndex = Math.floor(Math.random() * reviews.length)
-    }
 
     perfilImg.src = reviews[reviewIndex].image;
     peopleName.innerText = reviews[reviewIndex].name;
@@ -68,6 +70,8 @@ function randomReview(random){
     reviewDescription.innerText = reviews[reviewIndex].review;
 }
 
+
+
 window.onload = function(){
-    randomReview(true)
+    loadRandomReview()
 }
